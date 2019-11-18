@@ -1,5 +1,5 @@
 from django.db import models
-from .models import Search,Results
+from .models import Search,Results,Location
 from signal_sort.models import Signal_sort
 from signal_sort.signal_sort import signal_sort
 from tracker_registration.models import Tracker_register
@@ -23,14 +23,19 @@ def search_matches():
         for i in range(loopUpperControl.id,loopLowerControl.id,-1):
             stored_location=Signal_sort.objects.get(id=i)
             if search.employee_num==stored_location.employee_num:
-                status=process_location(stored_location.bssid)
+                status=stored_location.bssid
+                break
+    
     return status
 
 def process_location(x):
+    
     beacon=Beacon.objects.last()
     for i in range(beacon.id,0,-1):
-        obj=Beacon.objects.last()
+        obj=Beacon.objects.get(id=i)
+        
         if x==obj.beacon_name:
-            return obj        
+            Location.objects.create(room=obj.room,floor=obj.floor)
+                    
         
     

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.db import models
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Search, Results
+from .models import Search, Results, Location
 from .forms import Search_form
 from .s import search_matches,process_location
 from beacon.models import Beacon
@@ -25,13 +25,17 @@ def create_search(request):
 				form=(Search_form)
 				return render(request, "search.html",{'form':Search_form})
 			else:
-				location=process_location(state)
-				display_results(request,location)
+				# print(state)
+				process_location(state)
+				# print(location.room)
+				# display_results(request,location)
 				return HttpResponseRedirect('/search-results')
 	return render(request, "search.html",{'form':Search_form})
 
-def display_results(request,location):
-	# location=process_location()
+def display_results(request):
+	print(state)
+	location=Location.objects.last()
+	print(location)
 	context		={
 		"room_pretext":"Employee is at room ",
 		"room_number":location.room,

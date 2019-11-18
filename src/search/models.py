@@ -12,4 +12,7 @@ class Results(models.Model):
 	signal_strength		=models.IntegerField()
 	class Meta:
 		verbose_name_plural = "Results"
-        
+class Location(models.Model):
+	
+	room=models.IntegerField()
+	floor=models.IntegerField()
