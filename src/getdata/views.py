@@ -13,7 +13,7 @@ def create_dump(request):
 	my_form=Dumpdataform(request.POST)
 	if my_form.is_valid():
 		Scan.objects.create(**my_form.cleaned_data)	
-		sort_data()
+		a=sort_data()
 		Scan.objects.all().delete()
 		# my_form=Dumpdataform()
 	context={
