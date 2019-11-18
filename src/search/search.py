@@ -1,29 +1,41 @@
 from django.db import models
-from .models import Search,Results
+from .models import Search,Results,Location
 from signal_sort.models import Signal_sort
 from signal_sort.signal_sort import signal_sort
 from tracker_registration.models import Tracker_register
-from django.http import HttpResponse
-from django.shortcuts import render
+from beacon.models import Beacon
+from signal_sort.models import Signal_sort
 
 def search_matches():
-    signal_sort()
-	search_term	=Search.objects.last()
-	search_term_object=Search.objects.get(id=search_term.id)
-	num_employee=Tracker_register.objects.latest('id')
-	num=num_employee.id
-	status="not found"
-    for x in range(num,0,-1):
-        emp_id=Tracker_register.objects.get(id=x)
-		sorted_rec_latest                       =Signal_sort.objects.latest('id')
-		sorted_rec_latest_object=Signal_sort.objects.get(id=sorted_rec_latest.id)
-		num                                             =sorted_rec_latest_object.id
-        for x in range(num,0,-1):
-            obj =Signal_sort.objects.get(id=num)
-            if search_term_object.employee_num==obj.employee_num:
-                print(obj.employee_num,obj.bssid,obj.signal_strength)
-            	Results.objects.create(employee_num=obj.employee_num,bssid=obj.bssid,signal_strength=obj.signal_strength)
-            	status="found"
-            	print("suckess")
-            	break
+    a=signal_sort()
+    search=Search.objects.last()
+    tracker=Tracker_register.objects.latest('id')
+    status="not found"
+    for x in range(tracker.id,0,-1):
+        tracker_match=Tracker_register.objects.get(id=x)
+        if tracker_match.tracker_number==search.employee_num:
+            status="found"
+        # if tracker_match.employee_num!=search.employee_num:
+
+    if status=="found":
+        loopUpperControl=Signal_sort.objects.last()
+        loopLowerControl=Signal_sort.objects.first()
+        for i in range(loopUpperControl.id,loopLowerControl.id,-1):
+            stored_location=Signal_sort.objects.get(id=i)
+            if search.employee_num==stored_location.employee_num:
+                status=stored_location.bssid
+                break
+    
     return status
+
+def process_location(x):
+    
+    beacon=Beacon.objects.last()
+    for i in range(beacon.id,0,-1):
+        obj=Beacon.objects.get(id=i)
+        
+        if x==obj.beacon_name:
+            Location.objects.create(room=obj.room,floor=obj.floor)
+                    
+        
+    

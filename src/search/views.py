@@ -3,7 +3,7 @@ from django.db import models
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Search, Results, Location
 from .forms import Search_form
-from .s import search_matches,process_location
+from .search import search_matches,process_location
 from beacon.models import Beacon
 state="default value"
 def create_search(request):
