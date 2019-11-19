@@ -5,7 +5,12 @@ from .models import Search, Results, Location
 from .forms import Search_form
 from .search import search_matches,process_location
 from beacon.models import Beacon
+from django.contrib.auth.decorators import login_required
+
+
+
 state="default value"
+@login_required
 def create_search(request):
 	if request.method == 'POST':
 		form=Search_form(request.POST)
@@ -21,7 +26,7 @@ def create_search(request):
 				process_location(state)
 				return HttpResponseRedirect('/search-results')
 	return render(request, "search.html",{'form':Search_form})
-
+@login_required
 def display_results(request):
 	print(state)
 	location=Location.objects.last()
@@ -29,7 +34,7 @@ def display_results(request):
 	context		={
 		"room_pretext":"Employee is at room ",
 		"room_number":location.room,
-		"floor_pretext":"in floor number ",
+		"floor":"in floor number ",
 		"floor_number":location.floor
 	}
 	print(context)
