@@ -4,10 +4,12 @@ from django.http import HttpResponse
 from .models import Scan
 from .forms import Dumpdataform
 from sort.sort import sort_data
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 
 
-
+@csrf_exempt
 def create_dump(request):
 	my_form=Dumpdataform()
 	my_form=Dumpdataform(request.POST)
