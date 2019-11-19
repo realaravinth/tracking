@@ -15,8 +15,6 @@ def search_matches():
         tracker_match=Tracker_register.objects.get(id=x)
         if tracker_match.tracker_number==search.employee_num:
             status="found"
-        # if tracker_match.employee_num!=search.employee_num:
-
     if status=="found":
         loopUpperControl=Signal_sort.objects.last()
         loopLowerControl=Signal_sort.objects.first()
