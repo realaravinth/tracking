@@ -2,9 +2,9 @@
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266HTTPClient.h>
-const char *ssid =  "ESPWebServer";     // replace with your wifi ssid and wpa2 key
-const char *pass =  "12345678";
-const char *host = "192.168.42.211:9000/";
+const char *ssid =  "FD-26";     // replace with your wifi ssid and wpa2 key
+const char *pass =  "122223455";
+const char *host = "192.168.43.154:8000/";
  
 WiFiClient client;
  
@@ -41,15 +41,15 @@ void loop() {
         bssid_val=(WiFi.SSID(i));
         strenght_val=(WiFi.RSSI(i));
         String postData = "employee_num=emp001&bssid="+bssid_val+"&signal_strength="+strenght_val;
-        host_with_session_id="http://192.168.4.2:8000/getdata/?";
+        host_with_session_id="http://192.168.43.154:8000/getdata/?";
         url_val=host_with_session_id+postData;
          http.begin(url_val);
          http.addHeader("Content-Type", "text/html");
-        delay(10);
-        int httpCode = http.POST(url_val);   //Send the request
+        //delay(10);
+        int httpCode = http.GET();   //Send the request
        String payload = http.getString();
       }
     }
     Serial.println("");
-   delay(3000);
+   //delay(3000);
 }

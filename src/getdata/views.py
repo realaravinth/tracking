@@ -6,23 +6,45 @@ from .forms import Dumpdataform
 from sort.sort import sort_data
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-
-
+from .delete_values import delete_all 
 
 @csrf_exempt
 def create_dump(request):
+	
 	my_form=Dumpdataform()
-	my_form=Dumpdataform(request.POST)
+	my_form=Dumpdataform(request.GET)
 	if my_form.is_valid():
-		Scan.objects.create(**my_form.cleaned_data)	
-		a=sort_data()
+		# Scan.objects.create(employee)	
+		# print(my_form.cleaned_data[''])
+		Scan.objects.create(employee_num=my_form.cleaned_data['employee_num'],
+			bssid=my_form.cleaned_data['bssid'],signal_strength=my_form.cleaned_data['signal_strength'])
+		sort_data(my_form.cleaned_data)
+		# print(my_form.cleaned_data['signal_strength'])
 		Scan.objects.all().delete()
-		# my_form=Dumpdataform()
+		my_form=Dumpdataform()
 	context={
 			"form":my_form,
 	}
+	# print(context)
 
 	return render(request, "arduinodumpform.html", context)
+
+
+# @csrf_exempt
+# def create_dump(request):
+# 	my_form=Dumpdataform()
+# 	my_form=Dumpdataform(request.POST)
+# 	if my_form.is_valid():
+# 		Scan.objects.create(**my_form.cleaned_data)	
+# 		a=sort_data()
+# 		print(**my_form.cleaned_data)
+# 		# Scan.objects.all().delete() must be commented
+# 		my_form=Dumpdataform()
+# 	context={
+# 			"form":my_form,
+# 	}
+
+# 	return render(request, "arduinodumpform.html", context)
 
 # def displaydump(request,*args,**kwargs):
 # 	latest=Scan.objects.latest('id')
@@ -48,7 +70,7 @@ def create_dump(request):
 # 	 	Scan.objects.create({employee_num:employee_num,bssid:bissd,signal_strength:signal_strength}.**my_form)			
 # 	   #Scan.objects.create(**my_form.cleaned_data)
 # 	     # my_form = Dumpdataform()
-
+sort_data
 
 # 	context		={
 # 		"form": my_form,
