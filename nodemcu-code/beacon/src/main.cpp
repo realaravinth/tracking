@@ -3,7 +3,7 @@
 #include <ESP8266WebServer.h>
 #include <Arduino.h>
 //Beacon name and password
-String ssid = "r1b1";   //Put beacon name here
+String ssid = "r10b10";   //Put beacon name here
 const char *password = "12345678";//Change password to something very complex
 
 ESP8266WebServer server(80); //Server on port 80 to test beacon's status

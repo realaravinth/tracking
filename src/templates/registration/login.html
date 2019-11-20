@@ -1,7 +1,15 @@
-<h2>Login</h2>
+{% extends 'base.html' %}
+
+{% block content%}
+<div class=loginh2>
+<h2>Login to continue</h2>
+</div>
 {% load static %}
+<div class=loginform>
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Login</button>
 </form>
+</div>
+{% endblock %}

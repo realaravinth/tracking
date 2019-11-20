@@ -2,13 +2,19 @@
 
 {% load static %}
 {% block content%}
-{% include 'logout.html' %}
+{% include 'nav-logout.html' %}
+
+<div class=ali>
+<p>Search current locations</p>
+</div>
+<div class=align>
+
 <form action='' method= 'POST'>{% csrf_token %}
 		{{ form.as_p }}
 		<button type="submit">Submit</button>
 				
 </form>
-
+</div>
 
 
 {% endblock %}

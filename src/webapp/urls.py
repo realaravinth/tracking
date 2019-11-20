@@ -18,6 +18,8 @@ from django.urls import path, include
 from getdata.views import create_dump
 from search.views import create_search,display_results
 from django.views.generic.base import RedirectView
+from django.conf.urls.static import static
+from django.conf import settings
 urlpatterns = [
     
     path('admin/', admin.site.urls),
@@ -25,7 +27,8 @@ urlpatterns = [
     path('getdata/',create_dump,name='getdata'),
     path('search/',create_search,name='search'),
     path('search-results/',display_results,name='search'),
-    path("", RedirectView.as_view(url='accounts/login/', permanent=False), name='index')
+    path("", RedirectView.as_view(url='accounts/login/', permanent=False), name='index'),
+    # path(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
 
      
 ]

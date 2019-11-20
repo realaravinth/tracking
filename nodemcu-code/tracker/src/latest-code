@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "/tryingdjango/nodemcu-code/beacon"
+		},
+		{
+			"name": "tracker",
+			"path": "/tryingdjango/nodemcu-code/tracker"
+		}
+	],
+	"settings": {}
+}
