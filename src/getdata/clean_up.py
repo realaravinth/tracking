@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from .models import Scan, Cleaned
+from .models import Cleaned
 from beacon.models import Beacon
 
 
